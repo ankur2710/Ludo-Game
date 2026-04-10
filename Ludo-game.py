@@ -4,14 +4,11 @@ import sys
 import os
 import random
 import tkinter.messagebox
-
 root = Tk()
-
 root.resizable(width=False, height=False)  # The window size of the game.
 root.geometry('1000x750')
 root.configure(background='green')
 root.title("Checkers")
-
 logo = PhotoImage(file="whitebox.gif")      # Loading all the image files that are required in the game.
 logo2 = PhotoImage(file="red side.gif")     # Loading all the image files that are required in the game.
 logo3 = PhotoImage(file="red.gif")          # Loading all the image files that are required in the game.
