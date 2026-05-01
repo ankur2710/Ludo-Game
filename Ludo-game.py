@@ -36,13 +36,11 @@ logot3 = PhotoImage(file="tail3.gif")
 logoab= PhotoImage(file="blue.gif")
 logoay= PhotoImage(file="yellow.gif")
 logoag= PhotoImage(file="green.gif")
-
 Label(image=logo2, width=298, height=298).place(x=-1, y=-1)               #setting up board images
 Label(image=logo4, width=300, height=300).place(x=(-2), y=(448))
 Label(image=logo5, width=296, height=296).place(x=(450), y=(0))
 Label(image=logo6, width=294, height=294).place(x=(450), y=(450))
 Label(image=logo7, width=150, height=150).place(x=(298), y=(298))
-
 c = 0                                #initializing variable and flags that are to be used in the game
 lx = 0
 bb =0
@@ -59,15 +57,13 @@ BLUEKILL = False
 GREENKILL = False
 YELLOWKILL = False
 
-
 def board():                            #Drawing the board, piece by piece.
 
                                         #Splash Screen.
-    tkinter.messagebox.showinfo(title=None, message="TO START GAME PRESS OKAY & TO EXIT PRESS CROSS UP IN THE WINDOW")
+  tkinter.messagebox.showinfo(title=None, message="TO START GAME PRESS OKAY & TO EXIT PRESS CROSS UP IN THE WINDOW")
     v = 0
     z = 0
-
-    while (v != 300):           #Drawing White boxes
+  while (v != 300):           #Drawing White boxes
         z = 0
         while (z != 150):
             Label(image=logo, width=46, height=46).place(x=(300 + z), y=(0 + v))
@@ -82,7 +78,6 @@ def board():                            #Drawing the board, piece by piece.
             Label(image=logo, width=46, height=46).place(x=(0 + v), y=(300 + z))
             z = z + 50
         v = v + 50
-
     #####################
 
     v = 0
