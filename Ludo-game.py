@@ -818,3 +818,22 @@ def kill(a,b,c,d,bh,ch,dh):   #function that determines if a gamepiece can be ki
                 d[i].swap()
                 break
 
+def doublecheck(a):        #makes a double is two or more gamepieces on top of another.
+
+    for k in range (len(a)):
+        a[k].double = False
+
+    for i in range (len(a)):
+        for j in range (len(a)):
+            if (a[i].num == a[j].num) and (i != j):
+                a[j].double = True
+                a[i].double = True
+
+
+turn()            #prints the "red player's turn" initially
+
+button = Button(root, text="   ROLL   ", relief="raised", font=("Arial", 20),
+                command=roll)  # call roll function evertime this button is clicked
+button.place(x=805, y=120)
+
+root.mainloop()
