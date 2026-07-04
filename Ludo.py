@@ -40,8 +40,6 @@ def OnTokenButtonPress(event):
     item_below = canvas.find_overlapping(event.x, event.y, event.x, event.y)[0]
 
 
-
-
 # when the button is released
 # kindof a Destructor
 def OnTokenButtonRelease(event):
@@ -88,7 +86,6 @@ class RollTheDice:
 
         self.sideEntry = Entry(self.dieContainer)
         self.sideEntry.pack(side=TOP)
-
 
 
 global rolldisp
