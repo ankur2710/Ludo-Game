@@ -91,4 +91,58 @@ class RollTheDice:
 
 
 
-        
+global rolldisp
+        rolldisp = StringVar()
+        self.rollResult = Label(self.dieContainer, textvariable=rolldisp)
+        self.rollResult.pack(side=TOP)
+
+        self.diceButton = Button(self.dieContainer)
+        self.diceButton.configure(text="Roll the Dice!", background="orangered1")
+        self.diceButton.pack(side=LEFT)
+        self.diceButton.bind("<Button-1>", self.diceButtonClick)
+        self.diceButton.bind("<Return>", self.diceButtonClick)
+
+        self.quitButton = Button(self.dieContainer)
+        self.quitButton.configure(text="Quit", background="blue")
+        self.quitButton.pack(side=RIGHT)
+        self.quitButton.bind("<Button-1>", self.quitButtonClick)
+        self.quitButton.bind("<Return>", self.quitButtonClick)
+
+    def diceButtonClick(self, event):
+        die = int(self.dieEntry.get())
+        side = int(self.sideEntry.get())
+        DieRoll(die, side)
+
+    def quitButtonClick(self, event):
+        self.dieParent.destroy()
+
+def DieRoll(dice, sides):
+    import random
+    rollnumber = 1
+    runningtotal = 0
+    endresult = ""
+    while rollnumber <= dice:
+        roll = random.randint(1, sides)
+        endresult += "Roll #"
+        endresult += str(rollnumber)
+        endresult += ": "
+        endresult += str(roll)
+        endresult += "\n"
+        runningtotal += roll
+        rollnumber += 1
+    finalresult = "Your Roll:\n"
+    finalresult += endresult
+    rolldisp.set(finalresult)
+
+def leftClick(event):                         #Main play function is called on every left click.
+    x = root.winfo_pointerx() #- root.winfo_rootx()  # This formula returns the x,y co-ordinates of the mouse pointer relative to the board.
+    y = root.winfo_pointery() # root.winfo_rooty()
+
+    print("Click at: ",x,y)
+
+root.bind("<Button-1>", leftClick)
+
+root = Tk()
+root.title("Die Roller")
+myapp = RollTheDice(root)
+root.mainloop()
