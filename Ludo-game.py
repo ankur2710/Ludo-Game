@@ -200,4 +200,402 @@ class Box:                           #class of red box
     def swap(self):
         self.rap.place(x=self.x0 + 13, y=self.y0 + 14)
 
+def main():                                 # Main game function.
 
+    global box, redbox, bluebox, greenbox, yellowbox, redhome, bluehome, yellowhome, greenhome
+    global red, blue, yellow, green, rap, RED, BLUE, GREEN, YELLOW, dice, nc, TURN, bb
+
+    if c == 0:                              #constructs the game pieces first time the code is ran.
+
+        board()
+
+        box = [Box() for i in range(52)]  # list of co-ordinates of all the outer boxes
+
+        redbox = [Box() for i in range(57)]  # list of co-ordinates of all the colored boxes, excluding home and stop.
+        bluebox = [Box() for i in range(57)]
+        greenbox = [Box() for i in range(57)]
+        yellowbox = [Box() for i in range(57)]
+
+        redhome = [Box() for i in range(4)]  # list co-ordinates of all the home positions
+        bluehome = [Box() for i in range(4)]
+        greenhome = [Box() for i in range(4)]
+        yellowhome = [Box() for i in range(4)]
+
+        red = [Box() for i in range(4)]  # list of co-ordinates of all the game pieces in their initial state
+        blue = [BBox() for i in range(4)]  # that is equal to their respective home co-ordinates.
+        green = [GBox() for i in range(4)]
+        yellow = [YBox() for i in range(4)]
+
+        for i in range(2):                        #Populates list of homeboxes, colored boxes, gamepieces and white boxes
+            redhome[i].x = (100 + (100 * i))
+            redhome[i].y = 100
+            red[i].x0 = redhome[i].x
+            red[i].y0 = redhome[i].y
+            red[i].x = (red[i].x0) + 25
+            red[i].y = (red[i].y0) + 25
+
+            bluehome[i].x = (100 + (100 * i))
+            bluehome[i].y = (550)
+            blue[i].x0 = bluehome[i].x
+            blue[i].y0 = bluehome[i].y
+            blue[i].x = (blue[i].x0) + 25
+            blue[i].y = (blue[i].y0) + 25
+
+            yellowhome[i].x = (550 + (100 * i))
+            yellowhome[i].y = (550)
+            yellow[i].x0 = yellowhome[i].x
+            yellow[i].y0 = yellowhome[i].y
+            yellow[i].x = (yellow[i].x0) + 25
+            yellow[i].y = (yellow[i].y0) + 25
+
+            greenhome[i].x = (550 + (100 * i))
+            greenhome[i].y = (100)
+            green[i].x0 = greenhome[i].x
+            green[i].y0 = greenhome[i].y
+            green[i].x = (green[i].x0) + 25
+            green[i].y = (green[i].y0) + 25
+
+        for i in range(2, 4):
+            redhome[i].x = (100 + (100 * (i - 2)))
+            redhome[i].y = 200
+            red[i].x0 = redhome[i].x
+            red[i].y0 = redhome[i].y
+            red[i].x = (red[i].x0) + 25
+            red[i].y = (red[i].y0) + 25
+
+            bluehome[i].x = (100 + (100 * (i - 2)))
+            bluehome[i].y = (650)
+            blue[i].x0 = bluehome[i].x
+            blue[i].y0 = bluehome[i].y
+            blue[i].x = (blue[i].x0) + 25
+            blue[i].y = (blue[i].y0) + 25
+
+            yellowhome[i].x = (550 + (100 * (i - 2)))
+            yellowhome[i].y = (650)
+            yellow[i].x0 = yellowhome[i].x
+            yellow[i].y0 = yellowhome[i].y
+            yellow[i].x = (yellow[i].x0) + 25
+            yellow[i].y = (yellow[i].y0) + 25
+
+            greenhome[i].x = (550 + (100 * (i - 2)))
+            greenhome[i].y = 200
+            green[i].x0 = greenhome[i].x
+            green[i].y0 = greenhome[i].y
+            green[i].x = (green[i].x0) + 25
+            green[i].y = (green[i].y0) + 25
+
+        for i in range(6):
+            box[i].x = 300
+            box[i].y = (700 - (50 * i))
+
+        for i in range(6, 12):
+            box[i].x = (250 - (50 * (i - 6)))
+            box[i].y = (400)
+
+        box[12].x = 0
+        box[12].y = 350
+
+        for i in range(13, 19):
+            box[i].x = (0 + (50 * (i - 13)))
+            box[i].y = (300)
+
+        for i in range(19, 25):
+            box[i].x = (300)
+            box[i].y = (250 - (50 * (i - 19)))
+
+        box[25].x = 350
+        box[25].y = 0
+
+        for i in range(26, 32):
+            box[i].x = (400)
+            box[i].y = (0 + (50 * (i - 26)))
+
+        for i in range(32, 38):
+            box[i].x = (450 + (50 * (i - 32)))
+            box[i].y = (300)
+
+        box[38].x = 700
+        box[38].y = 350
+
+        for i in range(39, 45):
+            box[i].x = (700 - (50 * (i - 39)))
+            box[i].y = (400)
+
+        for i in range(45, 51):
+            box[i].x = (400)
+            box[i].y = (450 + (50 * (i - 45)))
+
+        box[51].x = 350
+        box[51].y = 700
+
+        # teshh
+        lx = 14
+        for i in range(52):
+            redbox[i].x = box[lx].x
+            redbox[i].y = box[lx].y
+            lx = lx + 1
+            if lx > 51:
+                lx = 0
+
+        lx = 50
+        for i in range(7):
+            redbox[lx].x = (0 + (50 * i))
+            redbox[lx].y = 350
+            lx = lx + 1
+        # blue
+        lx = 1
+        for i in range(52):
+
+            bluebox[i].x = box[lx].x
+            bluebox[i].y = box[lx].y
+            lx = lx + 1
+            if lx > 51:
+                lx = 0
+
+        lx = 50
+        for i in range(7):
+            bluebox[lx].x = 350
+            bluebox[lx].y = (700 - (50 * i))
+            lx = lx + 1
+        # yellow
+        lx = 40
+        for i in range(52):
+            yellowbox[i].x = box[lx].x
+            yellowbox[i].y = box[lx].y
+            lx = lx + 1
+            if lx > 51:
+                lx = 0
+
+        lx = 50
+        for i in range(7):
+            yellowbox[lx].x = (700 - (50 * i))
+            yellowbox[lx].y = (350)
+            lx = lx + 1
+
+        # green
+        lx = 27
+        for i in range(52):
+
+            greenbox[i].x = box[lx].x
+            greenbox[i].y = box[lx].y
+
+            lx = lx + 1
+            if lx > 51:
+                lx = 0
+
+        lx = 50
+        for i in range(7):
+            greenbox[lx].x = 350
+            greenbox[lx].y = (0 + (50 * i))
+            lx = lx + 1
+
+        for i in range(4):
+            red[i].swap()
+            blue[i].swap()
+            green[i].swap()
+            yellow[i].swap()                       #Population of all list is completed. Now game can begin
+
+
+    else:  # HERE ALL THE GAME OCCURS ... IF WAGHAIRA, MOVEMENT IDHAR HOGI !!!
+
+        if c >= 1:                                #This condition is true when a click is made.
+
+            if RED == True and TURN == False:      #Red players turn
+                print("Red's Turn")
+                print("moves available: ", rolls)
+                la = "RED"
+                if (movecheck(red, redhome, redbox, la)) == False:  #Checks if player can take a turn.
+                    BLUE = True
+                    RED = False
+                    clear()                                          #clears variable, next players turn
+
+                if RED == True:                                   # searches if click is made on a red game piece.
+                    for i in range(len(red)):
+                        if ((((cx > red[i].x0 + 13) and (cx < red[i].x + 13)) and (
+                            (cy > red[i].y0 + 14) and (cy < red[i].y + 14)))
+                            and (red[i].x0 == redhome[i].x) and (red[i].y0 == redhome[i].y)):
+                            print("woila ")
+
+                            if rolls[0 + nc] == 6:                 #If a six occurs and gamepiece is in home
+                                                                    #Game piece is moved onto the home box
+                                red[i].x0 = redbox[0].x
+                                red[i].y0 = redbox[0].y
+                                red[i].x = redbox[0].x + 25
+                                red[i].y = redbox[0].y + 25
+                                red[i].num = 0
+                                red[i].swap()
+                                nc = nc + 1
+
+                                if nc > len(rolls) - 1:           # check if all moves are made. so next players turn.
+                                    BLUE = True
+                                    RED = False
+                                    clear()
+                                break
+
+                        if ((((cx > red[i].x0 + 13) and (cx < red[i].x + 13)) and (       #if gamepiece is outside home
+                            (cy > red[i].y0 + 14) and (cy < red[i].y + 14)))
+                            and ((red[i].x0 > 270) or (red[i].y0 > 270))):
+                            print("woila ")
+                            bb = ((red[i].num) + rolls[0 + nc])
+                            # Winning condition
+
+                            if bb > 57:                        #prevents moves greater than allowed number
+                                break
+                                #bb = ((red[i].num) + rolls[0 + nc]) - 57
+
+                            kill(redbox,blue,yellow,green,bluehome,yellowhome,greenhome)      #checks if a kill can be made.
+
+                            red[i].x0 = redbox[bb].x
+                            red[i].y0 = redbox[bb].y
+                            red[i].x = redbox[bb].x + 25
+                            red[i].y = redbox[bb].y + 25
+                            red[i].swap()
+                            red[i].num = bb
+                            doublecheck(red)                           #checks if the gamepiece can be made as a double.
+
+                            nc = nc + 1
+                            if bb == 57:                              #checks if game has traversed all the blocks
+                                # del red[i]
+                                red.remove(red[i]);
+
+                            if nc > len(rolls) - 1:
+                                BLUE = True                         #next players turn.
+                                RED = False
+                                clear()
+                            break
+
+
+                        # BLUES TURN!!!!!!!!!!!!!!!!!!!!
+
+            if BLUE == True and TURN == False:                        #same as REDS CODE
+                print("Blue's Turn")
+                print("moves available: ", rolls)
+                la="BLUE"
+                if (movecheck(blue, bluehome, bluebox, la)) == False:
+                    print("NO MOVES SIR JEE")
+                    BLUE = False
+                    YELLOW = True
+                    clear()
+
+                if BLUE == True:
+
+                    for i in range(len(blue)):
+                        if ((((cx > blue[i].x0 + 13) and (cx < blue[i].x + 13)) and (
+                            (cy > blue[i].y0 + 14) and (cy < blue[i].y + 14)))
+                            and (blue[i].x0 == bluehome[i].x) and (blue[i].y0 == bluehome[i].y)):
+                            print("woila ")
+
+                            if rolls[0 + nc] == 6:
+
+                                blue[i].x0 = bluebox[0].x
+                                blue[i].y0 = bluebox[0].y
+                                blue[i].x = bluebox[0].x + 25
+                                blue[i].y = bluebox[0].y + 25
+                                blue[i].num = 0
+                                blue[i].swap()
+                                nc = nc + 1
+
+                                if nc > len(rolls) - 1:
+                                    YELLOW = True
+                                    BLUE = False
+                                    clear()
+                                break
+
+                        if ((((cx > blue[i].x0 + 13) and (cx < blue[i].x + 13)) and (
+                            (cy > blue[i].y0 + 14) and (cy < blue[i].y + 14)))
+                            and ((blue[i].x0 > 270) or (blue[i].y0 < 470))):
+                            print("woila ")
+                            bb = ((blue[i].num) + rolls[0 + nc])
+                            if bb > 57:
+                                break
+                                # bb= ((blue[i].num) + rolls[0 + nc]) - 52
+
+                            kill(bluebox,red,yellow,green,redhome,yellowhome,greenhome)
+
+                            blue[i].x0 = bluebox[bb].x
+                            blue[i].y0 = bluebox[bb].y
+                            blue[i].x = bluebox[bb].x + 25
+                            blue[i].y = bluebox[bb].y + 25
+                            blue[i].swap()
+                            blue[i].num = bb
+                            doublecheck(blue)
+                            nc = nc + 1
+                            if bb == 57:
+                                # del red[i]
+                                blue.remove(blue[i]);
+
+                            if nc > len(rolls) - 1:
+                                YELLOW = True
+                                BLUE = False
+                                clear()
+                            break
+
+                        # YELLOWS TURN!!!!!!!!!!!!!!!!!!!!
+
+            if YELLOW == True and TURN == False:                     #Same as RED's code
+                print("Yellows's Turn")
+                print("moves available: ", rolls)
+                la="YELLOW"
+                if (movecheck(yellow, yellowhome, yellowbox,la)) == False:
+                    print("NO MOVES SIR JEE")
+                    YELLOW = False
+                    GREEN = True
+                    clear()
+
+                if YELLOW == True:
+
+                    for i in range(len(yellow)):
+                        if ((((cx > yellow[i].x0 + 13) and (cx < yellow[i].x + 13)) and (
+                                    (cy > yellow[i].y0 + 14) and (cy < yellow[i].y + 14)))
+                            and (yellow[i].x0 == yellowhome[i].x) and (yellow[i].y0 == yellowhome[i].y)):
+                            print("woila ")
+
+                            if rolls[0 + nc] == 6:
+
+                                yellow[i].x0 = yellowbox[0].x
+                                yellow[i].y0 = yellowbox[0].y
+                                yellow[i].x = yellowbox[0].x + 25
+                                yellow[i].y = yellowbox[0].y + 25
+                                yellow[i].num = 0
+                                yellow[i].swap()
+                                nc = nc + 1
+
+                                if nc > len(rolls) - 1:
+                                    YELLOW = False
+                                    GREEN = True
+                                    clear()
+                                break
+
+                        if ((((cx > yellow[i].x0 + 13) and (cx < yellow[i].x + 13)) and (
+                                    (cy > yellow[i].y0 + 14) and (cy < yellow[i].y + 14)))
+                            and ((yellow[i].x0 < 470) or (yellow[i].y0 < 470))):
+                            print("woila ")
+                            bb = ((yellow[i].num) + rolls[0 + nc])
+                            if bb > 57:
+                                break
+                                #bb = ((yellow[i].num) + rolls[0 + nc]) - 52
+
+                            kill(yellowbox,blue,red,green,bluehome,redhome,greenhome)
+
+                            yellow[i].x0 = yellowbox[bb].x
+                            yellow[i].y0 = yellowbox[bb].y
+                            yellow[i].x = yellowbox[bb].x + 25
+                            yellow[i].y = yellowbox[bb].y + 25
+                            yellow[i].swap()
+                            yellow[i].num = bb
+                            doublecheck(yellow)
+                            nc = nc + 1
+                            if bb == 57:
+                                # del red[i]
+                                yellow.remove(yellow[i]);
+
+                            if nc > len(rolls) - 1:
+                                YELLOW = False
+                                GREEN = True
+                                clear()
+                            break
+
+
+                        # GREENS TURN!!!!!!!!!!!!!!!!!!!!
+
+        
