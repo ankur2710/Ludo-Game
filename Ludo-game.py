@@ -597,5 +597,182 @@ def main():                                 # Main game function.
 
 
                         # GREENS TURN!!!!!!!!!!!!!!!!!!!!
+    if GREEN == True and TURN == False:                     #Same as RED's code
+                print("Green's Turn")
+                print("moves available: ", rolls)
+                la="GREEN"
+                if (movecheck(green, greenhome, greenbox,la)) == False:
+                    print("NO MOVES SIR JEE")
+                    GREEN = False
+                    RED = True
+                    clear()
 
-        
+                if GREEN == True:
+
+                    for i in range(len(green)):
+                        if ((((cx > green[i].x0 + 13) and (cx < green[i].x + 13)) and (
+                                    (cy > green[i].y0 + 14) and (cy < green[i].y + 14)))
+                            and (green[i].x0 == greenhome[i].x) and (green[i].y0 == greenhome[i].y)):
+                            print("woila ")
+
+                            if rolls[0 + nc] == 6:
+
+                                green[i].x0 = greenbox[0].x
+                                green[i].y0 = greenbox[0].y
+                                green[i].x = greenbox[0].x + 25
+                                green[i].y = greenbox[0].y + 25
+                                green[i].num = 0
+                                green[i].swap()
+                                nc = nc + 1
+                                print("green x.y: ", green[i].x0, green[i].y0)
+
+                                if nc > len(rolls) - 1:
+                                    GREEN = False
+                                    RED = True
+                                    clear()
+                                break
+
+                        if ((((cx > green[i].x0 + 13) and (cx < green[i].x + 13)) and (
+                                    (cy > green[i].y0 + 14) and (cy < green[i].y + 14)))
+                            and ((green[i].x0 < 470) or (green[i].y0 < 470))):
+                            print("woila ")
+                            bb = ((green[i].num) + rolls[0 + nc])
+                            if bb > 57:
+                                break
+                                # bb = ((green[i].num) + rolls[0 + nc]) - 52
+
+                            kill(greenbox,blue,yellow,red,bluehome,yellowhome,redhome)
+
+                            green[i].x0 = greenbox[bb].x
+                            green[i].y0 = greenbox[bb].y
+                            green[i].x = greenbox[bb].x + 25
+                            green[i].y = greenbox[bb].y + 25
+                            green[i].swap()
+                            green[i].num = bb
+                            nc = nc + 1
+                            doublecheck(green)
+                            if bb == 57:
+                                # del red[i]
+                                green.remove(green[i]);
+
+                            if nc > len(rolls) - 1:
+                                GREEN = False
+                                RED = True
+                                clear()
+                            break
+
+
+main()    #Main functin is called once when c==0 to intialize all the gamepieces.
+
+
+def leftClick(event):  # Main play function is called on every left click.
+
+    global c, cx, cy, RED, YELLOW
+    c = c + 1
+    cx = root.winfo_pointerx() - root.winfo_rootx()  # This formula returns the x,y co-ordinates of the mouse pointer relative to the board.
+    cy = root.winfo_pointery() - root.winfo_rooty()
+
+    print("Click at: ", cx, cy)
+
+    main()           #Main function called on every click to progress the game
+
+
+root.bind("<Button-1>", leftClick)
+
+
+def turn():   #Prints whoose turn is it
+
+    if RED == True:
+        L2 = Label(root, text="   Red's Turn    ", fg='Black', background='green', font=("Arial", 24, "bold"))
+        L2.place(x=770, y=50)
+
+    if BLUE == True:
+        L2 = Label(root, text="   Blue's Turn   ", fg='Black', background='green', font=("Arial", 24, "bold"))
+        L2.place(x=770, y=50)
+
+    if GREEN == True:
+        L2 = Label(root, text="Green's Turn  ", fg='Black', background='green', font=("Arial", 24, "bold"))
+        L2.place(x=770, y=50)
+
+    if YELLOW == True:
+        L2 = Label(root, text="Yellow's Turn", fg='Black', background='green', font=("Arial", 24, "bold"))
+        L2.place(x=770, y=50)
+
+
+def roll():   #Rolling function that rolls a dice, goes again if its a six
+    global rollc, dice, dice1, dice2, TURN, rolls
+
+    if TURN == True:
+
+        rollc = rollc + 1
+        print("roll: ", rollc)
+
+        if rollc == 1:
+            dice = random.randint(1, 6)
+            L1 = Label(root, text=dice, fg='Black', background='green', font=("Arial", 24, "bold"))
+            L1.place(x=800, y=200)
+            print("dice: ", dice)
+            rolls.append(dice)
+            if dice != 6:
+                rollc = 0
+                TURN = False
+
+        if rollc == 2:
+            if dice == 6:
+                dice1 = random.randint(1, 6)
+                L3 = Label(root, text=dice1, fg='Black', background='green', font=("Arial", 24, "bold"))
+                L3.place(x=800, y=250)
+                rolls.append(dice1)
+                if dice1 != 6:
+                    rollc = 0
+                    TURN = False
+
+        if rollc == 3:
+            if dice1 == 6:
+                dice2 = random.randint(1, 6)
+                L4 = Label(root, text=dice2, fg='Black', background='green', font=("Arial", 24, "bold"))
+                L4.place(x=800, y=300)
+                rolls.append(dice2)
+                rollc = 0
+                TURN = False
+
+
+def clear():        #clears all the variable prior to next player's turn
+    global nc, rolls, TURN, L1, L3, L4
+    nc = 0
+    del rolls[:]
+    TURN = True
+    L1 = Label(root, text="        ", fg='Black', background='green', font=("Arial", 24, "bold"))
+    L1.place(x=800, y=200)
+    L3 = Label(root, text="        ", fg='Black', background='green', font=("Arial", 24, "bold"))
+    L3.place(x=800, y=250)
+    L4 = Label(root, text="        ", fg='Black', background='green', font=("Arial", 24, "bold"))
+    L4.place(x=800, y=300)
+    print("cleared")
+    turn()
+
+
+def movecheck(r, rh, rb, la):       #Check if the player can make a move
+
+    if (dice == 6 and dice1 == 6 and dice2 == 6):
+        return False
+
+    win=True                                                  #Checking if the game is won or the player can make any moves.
+    for j in range(4):
+        if (r[j].x0 != rb[56].x) and (r[j].y0 != rb[56].y):
+             win=False
+
+    if win == True:                                         #If all gamepieces home, prints that the player has won
+        print("YOU HAVE WON")
+        L2 = Label(root, text=(la + "Wins"), fg='Black', background='green', font=("Arial", 24, "bold"))
+        L2.place(x=770, y=500)
+        return False
+
+    if win == False and dice != 6:                    #if its not a 6 and all game pieces inside home, then next players turn
+        for i in range(len(r)):
+            if(r[i].num != -1):
+                (print("good hai"))
+                return True
+        print("jani all in")
+        return False
+
