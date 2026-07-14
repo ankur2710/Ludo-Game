@@ -775,4 +775,68 @@ def movecheck(r, rh, rb, la):       #Check if the player can make a move
                 return True
         print("jani all in")
         return False
+def kill(a,b,c,d,bh,ch,dh):   #function that determines if a gamepiece can be killed
+
+    #if the game piece is not on a stop
+    if ((a[bb].x0 != box[1].x and a[bb].y0 != box[1].y) and (a[bb].x0 != box[14].x and a[bb].y0 != box[14].y) and
+        (a[bb].x0 != box[9].x and a[bb].y0 != box[9].y) and (a[bb].x0 != box[22].x and a[bb].y0 != box[22].y) and
+        (a[bb].x0 != box[27].x and a[bb].y0 != box[27].y) and (a[bb].x0 != box[35].x and a[bb].y0 != box[35].y) and
+        (a[bb].x0 != box[40].x and a[bb].y0 != box[40].y) and (a[bb].x0 != box[48].x and a[bb].y0 != box[48].y)):
+
+
+        #if the game piece of another color and its on the same block and it is not a double, a kill is made
+        for i in range (len(b)):
+            if (b[i].x0 == a[bb].x and b[i].y0 == a[bb].y and (b[i].double == False)):
+                b[i].x0 = bh[i].x
+                b[i].y0 = bh[i].y
+                b[i].x = bh[i].x + 25
+                b[i].y = bh[i].y + 25
+                b[i].num=-1
+                b[i].swap()
+                break
+
+        for i in range (len(c)):
+            if (c[i].x0 == a[bb].x and c[i].y0 == a[bb].y and (c[i].double == False)):
+                c[i].x0 = ch[i].x
+                c[i].y0 = ch[i].y
+                c[i].x = ch[i].x + 25
+                c[i].y = ch[i].y + 25
+                c[i].num=-1
+                c[i].swap()
+                break
+
+        for i in range (len(d)):
+            if (d[i].x0 == a[bb].x and d[i].y0 == a[bb].y and (d[i].double == False)):
+                d[i].x0 = dh[i].x
+                d[i].y0 = dh[i].y
+                d[i].x = dh[i].x + 25
+                d[i].y = dh[i].y + 25
+                d[i].num=-1
+                d[i].swap()
+                break
+
+def doublecheck(a):        #makes a double is two or more gamepieces on top of another.
+
+    for k in range (len(a)):
+        a[k].double = False
+
+    for i in range (len(a)):
+        for j in range (len(a)):
+            if (a[i].num == a[j].num) and (i != j):
+                a[j].double = True
+                a[i].double = True
+
+
+turn()            #prints the "red player's turn" initially
+
+button = Button(root, text="   ROLL   ", relief="raised", font=("Arial", 20),
+                command=roll)  # call roll function evertime this button is clicked
+button.place(x=805, y=120)
+
+root.mainloop()
+
+
+
+
+        
 
