@@ -39,3 +39,27 @@ def OnTokenButtonPress(event):
     item_below = canvas.find_overlapping(event.x, event.y, event.x, event.y)[0]
 
 
+# when the button is released
+# kindof a Destructor
+def OnTokenButtonRelease(event):
+    # reset the drag information
+    drag_data["item"] = None
+    drag_data["x"] = 0
+    drag_data["y"] = 0
+
+
+def OnTokenMotion(event):
+    # compute how much this object has moved
+    moved_x = event.x - drag_data["x"]
+    moved_y = event.y - drag_data["y"]
+    # new location of the dragged item
+
+
+    # move the object the appropriate amount
+    canvas.move(drag_data["item"], moved_x, moved_y)
+    # record the new position
+    drag_data["x"] = event.x
+    drag_data["y"] = event.y
+    if drag_data["x"]>=444 and drag_data["x"]<=582 and drag_data["y"]>=330 and drag_data["y"]<462:
+        print ('pug gayi')
+
