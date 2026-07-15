@@ -26,4 +26,16 @@ drag_data = {"x": 0, "y": 0, "item": None}
 init_data = {"x": 0, "y": 0, "item": None}
 final_coordinate = [0, 0]
 
+def OnTokenButtonPress(event):
+    # record the item and its location
+    drag_data["item"] = canvas.find_closest(event.x, event.y)[0]
+    drag_data["x"] = event.x
+    drag_data["y"] = event.y
+
+    init_data["item"] = drag_data["item"]  # defining new destination
+    init_data["x"] = drag_data["x"]
+    init_data["y"] = drag_data["y"]
+
+    item_below = canvas.find_overlapping(event.x, event.y, event.x, event.y)[0]
+
 
