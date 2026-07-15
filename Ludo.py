@@ -129,4 +129,17 @@ def DieRoll(dice, sides):
     finalresult = "Your Roll:\n"
     finalresult += endresult
     rolldisp.set(finalresult)
+def leftClick(event):                         #Main play function is called on every left click.
+    x = root.winfo_pointerx() #- root.winfo_rootx()  # This formula returns the x,y co-ordinates of the mouse pointer relative to the board.
+    y = root.winfo_pointery() # root.winfo_rooty()
+
+    print("Click at: ",x,y)
+
+root.bind("<Button-1>", leftClick)
+
+root = Tk()
+root.title("Die Roller")
+myapp = RollTheDice(root)
+root.mainloop()
+
 
