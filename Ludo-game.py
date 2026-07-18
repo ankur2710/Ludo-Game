@@ -57,3 +57,26 @@ BLUEKILL = False
 GREENKILL = False
 YELLOWKILL = False
 
+def board():                            #Drawing the board, piece by piece.
+
+                                        #Splash Screen.
+  tkinter.messagebox.showinfo(title=None, message="TO START GAME PRESS OKAY & TO EXIT PRESS CROSS UP IN THE WINDOW")
+    v = 0
+    z = 0
+  while (v != 300):           #Drawing White boxes
+        z = 0
+        while (z != 150):
+            Label(image=logo, width=46, height=46).place(x=(300 + z), y=(0 + v))
+            z = z + 50
+        v = v + 50
+
+    z = 0
+    v = 0
+    while (v != 300):          #Drawing White boxes
+        z = 0
+        while (z != 150):
+            Label(image=logo, width=46, height=46).place(x=(0 + v), y=(300 + z))
+            z = z + 50
+        v = v + 50
+    #####################
+
